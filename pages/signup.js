@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useAuth } from '../context/AuthContext';
 
-export default function Signup () {
+export default function Signup() {
+  const { user } = useAuth();
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -29,4 +31,4 @@ export default function Signup () {
       </Form>
     </div>
   );
-};
+}
