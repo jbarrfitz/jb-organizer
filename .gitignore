@@ -35,4 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# exclude NPM lockfiles
 package-lock.json
+
+# cypress
+cypress/screenshots
+cypress/videos
