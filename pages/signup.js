@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-const Signup = () => {
+export default function Signup () {
   const [data, setData] = useState({
     email: '',
     password: '',
