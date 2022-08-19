@@ -1,0 +1,46 @@
+name: CI
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.14.0'
+          cache: 'yarn'
+      - run: yarn install
+      - run: yarn run build
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.14.0'
+          cache: 'yarn'
+      - run: yarn install
+      - run: yarn run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.14.0'
+          cache: 'npm'
+      - run: yarn install
+      - run: yarn run test:ci
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.14.0'
+          cache: 'yarn'
+      - uses: cypress-io/github-action@v4
+        with:
+          start: yarn run dev
+          wait-on: 'http://localhost:3000'
