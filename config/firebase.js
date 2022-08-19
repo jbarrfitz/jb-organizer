@@ -1,4 +1,6 @@
 import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
@@ -9,3 +11,4 @@ const firebaseConfig = {
   measurementId: process.env.MEASUREMENT_ID,
 };
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth();
