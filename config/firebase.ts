@@ -11,7 +11,5 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-console.warn('FB', firebaseConfig)
-
 const app = initializeApp(firebaseConfig, 'trivia-app-keller');
 export const auth = getAuth(app);
