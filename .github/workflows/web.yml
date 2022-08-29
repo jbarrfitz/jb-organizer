@@ -31,7 +31,7 @@ jobs:
           node-version: '14'
           cache: 'npm'
       - run: yarn install
-      - run: yarn run test:ci
+      - run: yarn run test:ci--testPathIgnorePatterns=sms
   e2e:
     runs-on: ubuntu-latest
     needs: [build]

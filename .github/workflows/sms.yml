@@ -11,7 +11,7 @@ jobs:
           node-version: '14'
           cache: 'yarn'
       - run: yarn install
-      - run: yarn test
+      - run: yarn test:ci --testPathPattern=sms
   stage:
     runs-on: ubuntu-latest
     needs: [test]
