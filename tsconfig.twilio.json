@@ -1,22 +1,24 @@
 {
-    "extends": "./tsconfig.json",
     "compilerOptions": {
         "target": "es6",
-        "lib": [
-            "es6"
-        ],
-        "allowJs": true,
-        "skipLibCheck": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "types": ["node", "jest"],
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
         "strict": false,
-        "noEmit": false,
-        "incremental": true,
+        "esModuleInterop": true,
         "rootDir": "sms",
         "outDir": "dist",
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "Node"
+        "skipLibCheck": true,
+        "sourceMap": true
     },
     "include": [
-        "./sms"
+        "./sms/**/*"
+    ],
+    "exclude": [
+        "./*.ts",
+        "./**/*.test.ts"
     ]
 }
