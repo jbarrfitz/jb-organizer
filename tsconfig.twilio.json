@@ -1,0 +1,22 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "noEmit": false,
+        "incremental": true,
+        "rootDir": "sms",
+        "outDir": "dist",
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "Node"
+    },
+    "include": [
+        "./sms"
+    ]
+}

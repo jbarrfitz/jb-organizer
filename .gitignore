@@ -42,3 +42,6 @@ package-lock.json
 # cypress
 cypress/screenshots
 cypress/videos
+
+# twilio
+.twiliodeployinfo
