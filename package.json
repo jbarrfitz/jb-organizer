@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "sms:compile": "tsc -p ./tsconfig.twilio.json",
-    "sms:copy-assets": "copyfiles sms/assets/* sms/assets/**/* --up 1 --exclude **/*.ts dist/assets/",
+    "sms:copy-assets": "copyfiles sms/assets/* sms/assets/**/* --up 1 --exclude=\"**/*.ts\" static/",
     "sms:build": "yarn run sms:compile && yarn run sms:copy-assets",
     "sms:start": "yarn run sms:build && twilio-run --ngrok=\"\" --inspect=\"\"",
     "sms:deploy": "yarn run sms:build && twilio-run deploy --environment=production --username $ACCOUNT_SID --password $AUTH_TOKEN",
@@ -20,14 +20,14 @@
     "cypress:ci": "start-server-and-test dev http://localhost:3000 cypress"
   },
   "dependencies": {
-    "@twilio/runtime-handler": "1.2.2",
+    "@twilio/runtime-handler": "1.2.4",
     "bootstrap": "^5.2.0",
     "firebase": "^9.9.3",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "18.2.0",
-    "twilio": "^3.56"
+    "twilio": "^3.81.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -44,7 +44,7 @@
     "jest-environment-jsdom": "^29.0.1",
     "start-server-and-test": "^1.14.0",
     "ts-node": "^10.9.1",
-    "twilio-run": "^3.4.1",
+    "twilio-run": "^3.4.3",
     "typescript": "^4.8.2"
   }
 }
