@@ -6,6 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "sms:build": "tsc && yarn run sms:build:copy-assets",
+    "sms:build:copy-assets": "copyfiles sms/assets/* sms/assets/**/* --up 2 --exclude **/*.ts dist/assets/",
+    "sms:start": "twilio-run --ngrok=\"\" --inspect=\"\"",
+    "sms:deploy": "twilio-run deploy --environment=production --username $ACCOUNT_SID --password $AUTH_TOKEN",
+    "sms:deploy:staging": "twilio-run deploy --environment=staging --username $ACCOUNT_SID --password $AUTH_TOKEN",
     "lint": "next lint",
     "test": "jest --runInBand --watch",
     "test:ci": "jest --ci",
@@ -14,16 +19,20 @@
     "cypress:ci": "start-server-and-test dev http://localhost:3000 cypress"
   },
   "dependencies": {
+    "@twilio/runtime-handler": "1.2.4",
     "bootstrap": "^5.2.0",
     "firebase": "^9.9.3",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "twilio": "^3.81.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
+    "@twilio-labs/serverless-runtime-types": "^2.2.3",
+    "copyfiles": "^2.4.1",
     "cypress": "9",
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
@@ -33,6 +42,7 @@
     "jest-environment-jsdom": "^29.0.1",
     "start-server-and-test": "^1.14.0",
     "ts-node": "^10.9.1",
+    "twilio-run": "^3.4.3",
     "typescript": "^4.8.2"
   }
 }
