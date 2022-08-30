@@ -1,7 +1,21 @@
 name: SMS
 on: push
 
+env:
+  ACCOUNT_SID: "${{ secrets.TWILIO_ACCOUNT_SID }}"
+  AUTH_TOKEN: "${{ secrets.TWILIO_AUTH_TOKEN }}"
+
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - run: yarn install
+      - run: yarn run sms:build
   test:
     runs-on: ubuntu-latest
     steps:
@@ -14,8 +28,8 @@ jobs:
       - run: yarn test:ci --testPathPattern=sms
   stage:
     runs-on: ubuntu-latest
-    needs: [test]
-    # if: github.ref != 'refs/heads/main'
+    needs: [build, test]
+    if: github.ref != 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -25,23 +39,16 @@ jobs:
       - run: yarn install
       - name: Deploy to Staging with Twilio Serverless
         run: yarn sms:deploy:staging
-        env:
-          ACCOUNT_SID: "${{ secrets.TWILIO_ACCOUNT_SID }}"
-          AUTH_TOKEN: "${{ secrets.TWILIO_AUTH_TOKEN }}"
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: [build, test]
-  #   if: github.ref == 'refs/heads/main'
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '14'
-  #         cache: 'yarn'
-  #     - run: yarn install
-  #     - run: yarn build
-  #     - name: Deploy to Prod with Twilio Serverless
-  #       run: yarn deploy
-  #       env:
-  #         ACCOUNT_SID: "${{ secrets.TWILIO_ACCOUNT_SID }}"
-  #         AUTH_TOKEN: "${{ secrets.TWILIO_AUTH_TOKEN }}"
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build, test]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - run: yarn install
+      - name: Deploy to Prod with Twilio Serverless
+        run: yarn sms:deploy
