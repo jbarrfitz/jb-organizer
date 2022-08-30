@@ -15,7 +15,8 @@ jobs:
           node-version: '14'
           cache: 'yarn'
       - run: yarn install
-      - run: yarn run sms:build
+      - name: Compile Serverless Functions
+        run: yarn run sms:build
   test:
     runs-on: ubuntu-latest
     steps:
@@ -37,6 +38,8 @@ jobs:
           node-version: '14'
           cache: 'yarn'
       - run: yarn install
+      - name: Compile Serverless Functions
+        run: yarn run sms:build
       - name: Deploy to Staging with Twilio Serverless
         run: yarn sms:deploy:staging
   deploy:
@@ -50,5 +53,7 @@ jobs:
           node-version: '14'
           cache: 'yarn'
       - run: yarn install
+      - name: Compile Serverless Functions
+        run: yarn run sms:build
       - name: Deploy to Prod with Twilio Serverless
-        run: yarn sms:deploy
+        run: yarn run sms:deploy
