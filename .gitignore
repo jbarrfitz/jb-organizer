@@ -14,6 +14,8 @@
 
 # production
 /build
+/dist
+/static
 
 # misc
 .DS_Store
@@ -26,6 +28,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
+.env
 .env*.local
 
 # vercel
@@ -41,3 +44,6 @@ package-lock.json
 # cypress
 cypress/screenshots
 cypress/videos
+
+# twilio
+.twiliodeployinfo

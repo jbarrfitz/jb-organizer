@@ -1,18 +1,28 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  User,
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 
-const AuthContext = createContext({});
+export interface IUserState extends Partial<User> {}
+
+export interface IAuthContext {
+  user?: Nullable<IUserState>;
+  login: any;
+  signup: any;
+  logout: any;
+}
+
+const AuthContext = createContext<Partial<IAuthContext>>({});
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUserState | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
