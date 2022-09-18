@@ -1,7 +1,8 @@
 import React from 'react';
+import ProtectedRoute, { ProtectedRouteComponent } from '../containers/ProtectedRoute';
 
 const Dashboard = () => {
   return <div>This route is protected.</div>;
 };
 
-export default Dashboard;
+export default <ProtectedRouteComponent><Dashboard /></ProtectedRouteComponent>
