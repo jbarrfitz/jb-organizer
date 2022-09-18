@@ -3,15 +3,17 @@ import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 
 export default function Signup() {
-  const { user } = useAuth();
+  const { user, signup } = useAuth();
   const [data, setData] = useState({
     email: '',
     password: '',
   });
+  const { email, password } = data;
 
   const handleSignup = (e) => {
     e.preventDefault();
-    console.log(data);
+    signup(email, password).then((res) => console.warn(res, typeof res))
+    console.log(email, password.length);
   };
 
   return (
@@ -25,9 +27,20 @@ export default function Signup() {
             placeholder='Enter email'
             required
             onChange={(e) => setData({ ...data, email: e.target.value })}
-            value={data.email}
+            value={email}
+          />
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type='password'
+            placeholder='Password'
+            required
+            onChange={(e) => setData({ ...data, password: e.target.value })}
+            value={password}
           />
         </Form.Group>
+        <Button variant='primary' type='submit'>
+          Register
+        </Button>
       </Form>
     </div>
   );
