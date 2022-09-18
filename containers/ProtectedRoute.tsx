@@ -4,25 +4,21 @@ import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
 
-export interface IProtectedRouteProps {
-    redirect?: boolean;
-    children: JSX.Element;
-}
+export default function ProtectedRoute(Component, redirect = true) {
+    const ProtectedRouteComponent = () => {
+        const { push } = useRouter();
+        const { user } = useAuth();
+        const isAuthenticated = user?.email;
 
-
-export function ProtectedRouteComponent({ children, redirect = true }: IProtectedRouteProps) {
-  const { user } = useAuth();
-    const { push } = useRouter();
-
-    if (!user?.email) {
-        console.warn('ProtectedRoute: Not logged in')
-        if (redirect) {
-            push('/login')
-        }
-        return null;
+        useEffect(() => {
+            if (!isAuthenticated) {
+                console.warn('ProtectedRoute: Not logged in')
+                if (redirect) {
+                    push('/login')
+                }
+            }
+        }, [isAuthenticated, push])
+        return isAuthenticated ? <Component /> : null
     }
-  return children;
+    return ProtectedRouteComponent
 }
-
-const ProtectedRoute = (Component) => <ProtectedRouteComponent><Component/></ProtectedRouteComponent>
-export default ProtectedRoute;
