@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   User,
+  UserCredential,
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 
@@ -12,9 +13,9 @@ export interface IUserState extends Partial<User> {}
 
 export interface IAuthContext {
   user?: Nullable<IUserState>;
-  login: any;
-  signup: any;
-  logout: any;
+  login: (email: string, password: string) => Promise<UserCredential>;
+  signup: (email: string, password: string) => Promise<UserCredential>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<Partial<IAuthContext>>({});

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import Link from 'next/link';
+import { useAuth } from '../context/AuthContext';
 
 export default function NavbarComp() {
+  const { user } = useAuth();
+  // if (user.email)
   return (
     <Navbar bg='light' expand='lg'>
       <Container>
@@ -18,6 +21,11 @@ export default function NavbarComp() {
             <Link href='/login' passHref>
               <Nav.Link>Login</Nav.Link>
             </Link>
+            {user?.email ? (
+              <Link href='/logout' passHref>
+                <Nav.Link>Logout</Nav.Link>
+              </Link>
+            ) : null}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
+  const { login } = useAuth();
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
   });
+  const { email, password } = loginData;
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(loginData);
+    login(email, password).then((res) => console.warn(res, typeof res))
+    console.log(email, password.length);
   };
 
   return (
@@ -21,7 +25,7 @@ export default function Login() {
             onChange={(e) =>
               setLoginData({ ...loginData, email: e.target.value })
             }
-            value={loginData.email}
+            value={email}
             required
             type='email'
             placeholder='Enter email'
@@ -33,7 +37,7 @@ export default function Login() {
             onChange={(e) =>
               setLoginData({ ...loginData, password: e.target.value })
             }
-            value={loginData.password}
+            value={password}
             required
             type='password'
             placeholder='password'
