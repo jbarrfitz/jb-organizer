@@ -10,8 +10,8 @@
     "sms:copy-assets": "copyfiles sms/assets/* sms/assets/**/* --up 1 --exclude=\"**/*.ts\" static/",
     "sms:build": "yarn run sms:compile && yarn run sms:copy-assets",
     "sms:start": "yarn run sms:build && twilio-run --ngrok=\"\" --inspect=\"\"",
-    "sms:deploy": "twilio-run deploy --environment=production --username $ACCOUNT_SID --password $AUTH_TOKEN",
-    "sms:deploy:staging": "twilio-run deploy --environment=staging --username $ACCOUNT_SID --password $AUTH_TOKEN",
+    "sms:deploy": "twilio-run deploy --environment=production -l debug",
+    "sms:deploy:staging": "twilio-run deploy --environment=staging -l debug",
     "lint": "next lint",
     "test": "jest --runInBand --watch",
     "test:ci": "jest --ci",
@@ -44,7 +44,7 @@
     "jest-environment-jsdom": "^29.0.1",
     "start-server-and-test": "^1.14.0",
     "ts-node": "^10.9.1",
-    "twilio-run": "^3.4.3",
+    "twilio-run": "3.4.4",
     "typescript": "^4.8.2"
   }
 }

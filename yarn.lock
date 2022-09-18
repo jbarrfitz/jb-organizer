@@ -1407,10 +1407,10 @@
   resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.3.tgz#472eaab5f15c1ffdd7f8628bd4c4f753995ec79e"
   integrity sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==
 
-"@twilio-labs/serverless-api@^5.4.3":
-  version "5.4.3"
-  resolved "https://registry.yarnpkg.com/@twilio-labs/serverless-api/-/serverless-api-5.4.3.tgz#18e24ae83ebbc866ba325797037173f20697144c"
-  integrity sha512-O+b7GvE9xarLflY4olxM1VVwSFrs2sUxPjzf4o46SS9ZrBa71EVs0Q0uEnY+//xUuU5LOTzlMhbFtAi5XN9Sfg==
+"@twilio-labs/serverless-api@^5.4.4":
+  version "5.4.4"
+  resolved "https://registry.yarnpkg.com/@twilio-labs/serverless-api/-/serverless-api-5.4.4.tgz#61ddec780b7cd7a5be9a4a783a782faf41367e18"
+  integrity sha512-GziDH4+5wKUQQJhcqxNbR40KpxRRvIB4Io3E/RQrg8hvBQ/7l1onLvw7WLKbF0EaRx3nD/BneKTSCPSMrc0AfA==
   dependencies:
     "@types/mime-types" "^2.1.0"
     "@types/node" "^14.17.19"
@@ -7387,12 +7387,12 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.npmjs.org/tweetnacl/-/tweetnacl-0.14.5.tgz"
   integrity sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==
 
-twilio-run@^3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/twilio-run/-/twilio-run-3.4.3.tgz#7fcfd97481eb386ce6b793fe2a52786a8fc1a74e"
-  integrity sha512-NVTFcEefgPNNBOfQNe2MvKvOa1zsaH4A3cNb5qK6XtgFzieE+mOQMLrTXNzK3AJ3OnS23JWV7eOgK+YQGmFWPg==
+twilio-run@3.4.4:
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/twilio-run/-/twilio-run-3.4.4.tgz#7823c4689725f500221f10e4e29c9afe34be6dbe"
+  integrity sha512-HNpCAy/+/brpF1k+vtwn4cM+/STFXB/7gDwROSpdesZU9ccAhdCbesaJLQO0s5O54SuZJSwXIqXN47xYqwmgfg==
   dependencies:
-    "@twilio-labs/serverless-api" "^5.4.3"
+    "@twilio-labs/serverless-api" "^5.4.4"
     "@twilio-labs/serverless-runtime-types" "2.1.0-rc.0"
     "@types/express" "4.17.7"
     "@types/inquirer" "^6.0.3"
