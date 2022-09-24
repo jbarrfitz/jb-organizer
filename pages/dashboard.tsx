@@ -3,9 +3,9 @@ import ProtectedRoute from '../containers/ProtectedRoute';
 
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 
-const { Header, Content, Sider, Footer } = Layout;
+const { Content, Sider } = Layout;
 
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
   (icon, index) => {
@@ -29,24 +29,20 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 
 const Dashboard = () => {
   return (
-  <section>
     <Layout>
-      
-    <Sider width={200}>
-      <Menu
-        mode="inline"
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
-        style={{ height: '100%' }}
-        items={items2}
-      />
-    </Sider>
-    <Content>
-
-    <div>This route is protected.</div>;
-    </Content>
+      <Sider width={200}>
+        <Menu
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+          style={{ height: '100%' }}
+          items={items2}
+        />
+      </Sider>
+      <Content>
+        <h1>This route is protected.</h1>
+      </Content>
     </Layout>
-    </section>
   )
 };
 

@@ -9,6 +9,9 @@ import {
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 
+import { message } from 'antd';
+const { info, success, warning, error } = message;
+
 export interface IUserState extends Partial<User> {}
 
 export interface IAuthContext {
@@ -43,17 +46,33 @@ export const AuthContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const signup = async (email, password) => {
+    let res: UserCredential;
+    try {
+      res = await createUserWithEmailAndPassword(auth, email, password);
+      success(`Signed up with ${res.user.displayName || res.user.email}!`)
+    } catch(err) {
+      error(`Unable to login: ${err.toString()}`);
+    }
+    return res;
   };
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email, password) => {
+    let res: UserCredential;
+    try {
+      res = await signInWithEmailAndPassword(auth, email, password)
+      success(`Signed in as ${res.user.displayName || res.user.email}!`)
+    } catch(err) {
+      error(`Unable to login: ${err.toString()}`);
+    }
+    return res;
   };
 
   const logout = async () => {
     setUser(null);
     await signOut(auth);
+    info('Logged out successfully. Returning to main page...')
+    setTimeout(() => {}, 1000);
   };
 
   return (
