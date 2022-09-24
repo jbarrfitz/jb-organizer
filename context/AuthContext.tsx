@@ -6,11 +6,17 @@ import {
   signOut,
   User,
   UserCredential,
+  AuthError
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 
 import { message } from 'antd';
 const { info, success, warning, error } = message;
+
+const authErrorString = (err: AuthError | Error | any) => {
+  if (err.code) return err.code;
+  return err.message;
+}
 
 export interface IUserState extends Partial<User> {}
 
@@ -51,8 +57,9 @@ export const AuthContextProvider = ({ children }) => {
     try {
       res = await createUserWithEmailAndPassword(auth, email, password);
       success(`Signed up with ${res.user.displayName || res.user.email}!`)
-    } catch(err) {
-      error(`Unable to login: ${err.toString()}`);
+    } catch(err: AuthError | any) {
+      console.error(err)
+      error(`Unable to login: ${authErrorString(err)}`);
     }
     return res;
   };
@@ -61,9 +68,10 @@ export const AuthContextProvider = ({ children }) => {
     let res: UserCredential;
     try {
       res = await signInWithEmailAndPassword(auth, email, password)
-      success(`Signed in as ${res.user.displayName || res.user.email}!`)
-    } catch(err) {
-      error(`Unable to login: ${err.toString()}`);
+      success(`Signed in as ${res.user.displayName || res.user.email}`)
+    } catch(err: AuthError | any) {
+      console.error(err)
+      error(`Unable to login: ${authErrorString(err)}`);
     }
     return res;
   };

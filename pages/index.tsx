@@ -9,12 +9,6 @@ import Redirect, { useRouter } from 'next/router';
 export default function Home() {
   const { user } = useAuth();
   const router = useRouter();
-  if (!user) {
-    console.warn('Not logged in')
-    router.push('/login')
-  }
-
-  console.warn('AUTH STATE', user);
   return (
     <div className={styles.container}>
       <Head>
