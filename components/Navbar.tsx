@@ -10,15 +10,14 @@ import { useRouter } from "next/router";
 const { Header, Content, Sider } = Layout;
 
 export default function NavbarComp() {
-  const { user } = useAuth();
   const router = useRouter();
-
-  console.warn('User:', user)
+  const { user } = useAuth();
+  const isAuthenticated = user && user.email
 
   const navItems: MenuProps['items'] = [
     { key: 'dashboard', label: 'Dashboard'},
-    user?.email ? { key: 'login', label: 'Login'} : { key: 'logout', label: 'Logout'},
     { key: 'about', label: 'About'},
+    (isAuthenticated ? { key: 'logout', label: 'Logout'} : { key: 'login', label: 'Login'}),
   ]
   .map(item => ({
     ...item,
