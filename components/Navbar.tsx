@@ -3,32 +3,25 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
 
+import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { Breadcrumb, Layout, Menu } from 'antd';
+import { withRouter } from 'next/router';
+const { Header, Content, Sider } = Layout;
+
 export default function NavbarComp() {
   const { user } = useAuth();
-  // if (user.email)
+  // const router = withRouter();
+
+  const navItems: MenuProps['items'] = [
+    { key: 'home', label: 'Trivia'},
+    user?.email ? { key: 'login', label: 'Login'} : { key: 'logout', label: 'Logout'},
+  ]
+
   return (
-    <Navbar bg='light' expand='lg'>
-      <Container>
-        <Link href='/' passHref>
-          <Navbar.Brand>JB Organizer</Navbar.Brand>
-        </Link>
-        <Navbar.Toggle aria-controls='basic-navbar-nav' />
-        <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='me-auto'>
-            <Link href='/signup' passHref>
-              <Nav.Link>Signup</Nav.Link>
-            </Link>
-            <Link href='/login' passHref>
-              <Nav.Link>Login</Nav.Link>
-            </Link>
-            {user?.email ? (
-              <Link href='/logout' passHref>
-                <Nav.Link>Logout</Nav.Link>
-              </Link>
-            ) : null}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <Header>
+      <div className="logo" />
+      <Menu theme="dark" mode="horizontal" items={navItems} />
+    </Header>
   );
 }
