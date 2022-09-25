@@ -1,9 +1,7 @@
 import * as admin from 'firebase-admin'
 
-// Based on https://firebase.google.com/docs/database/admin/start#node.js_1
-const serviceAccount = require('../firebase-service-account.json')
-
 // Initialize the app with a service account, granting admin privileges
+// Based on https://firebase.google.com/docs/database/admin/start#node.js_1
 if (!admin.apps.length) {
     admin.initializeApp({
         credential: admin.credential.cert({
