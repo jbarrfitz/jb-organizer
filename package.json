@@ -14,8 +14,12 @@
     "cypress:ci": "start-server-and-test dev http://localhost:3000 cypress"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.23.2",
     "bootstrap": "^5.2.0",
     "firebase": "^9.9.3",
+    "firebase-admin": "^11.0.1",
+    "lodash": "^4.17.21",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",

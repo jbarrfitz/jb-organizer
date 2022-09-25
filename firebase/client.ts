@@ -1,4 +1,4 @@
-import { FirebaseOptions, initializeApp } from 'firebase/app';
+import { FirebaseOptions, initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig: FirebaseOptions = {
@@ -11,5 +11,5 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig, 'trivia-app-keller');
+export const app = initializeApp(firebaseConfig, 'trivia-app-keller');
 export const auth = getAuth(app);

@@ -12,13 +12,12 @@ export default function Logout() {
     const handleLogout = async () => {
         try {
             await logout()
-            push('/')
         } catch (err) {
             console.error('Unable to logout', err)
         }
     }
     handleLogout();
-  }, [logout, push]);
+  }, []);
 
   return (
     null

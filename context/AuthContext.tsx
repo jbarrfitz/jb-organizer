@@ -1,13 +1,29 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import {
+  getAuth,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   User,
   UserCredential,
+  AuthError
 } from 'firebase/auth';
-import { auth } from '../config/firebase';
+import { auth } from '../firebase/client';
+
+import { message } from 'antd';
+const { info, success, warning, error } = message;
+
+const authErrorString = (err: AuthError | Error | any) => {
+  if (err.code) {
+    return err
+      .code
+      .replace('auth/', '')
+      .replaceAll('-', ' ')
+  };
+  return err.message;
+}
 
 export interface IUserState extends Partial<User> {}
 
@@ -25,6 +41,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState<IUserState | null>(null);
   const [loading, setLoading] = useState(true);
+  const { push } = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -43,22 +60,43 @@ export const AuthContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const signup = async (email, password) => {
+    let res: UserCredential;
+    try {
+      res = await createUserWithEmailAndPassword(auth, email, password);
+      success(`Signed up with ${res.user.displayName || res.user.email}!`)
+    } catch(err: AuthError | any) {
+      console.error(err)
+      error(`Unable to login: ${authErrorString(err)}`);
+    }
+    return res;
   };
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email, password) => {
+    let res: UserCredential;
+    try {
+      res = await signInWithEmailAndPassword(auth, email, password)
+      success(`Signed in as ${res.user.displayName || res.user.email}`)
+      push('/dashboard');
+    } catch(err: AuthError | any) {
+      console.error(err)
+      error(`Unable to login: ${authErrorString(err)}`);
+    }
+    return res;
   };
 
   const logout = async () => {
     setUser(null);
     await signOut(auth);
+    info('Logged out successfully. Returning to main page...')
+    setTimeout(() => {
+      push('/');
+    }, 1000);
   };
 
   return (
     <AuthContext.Provider value={{ user, login, signup, logout }}>
-      {loading ? null : children}
+      {children}
     </AuthContext.Provider>
   );
 };

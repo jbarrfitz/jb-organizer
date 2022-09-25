@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
@@ -46,6 +47,11 @@ export default function Login() {
         <Button variant='primary' type='submit'>
           Login
         </Button>
+        <Link href="signup">
+          <Button variant='ghost' style={{ float: 'right' }}>
+            Register
+          </Button>
+        </Link>
       </Form>
     </div>
   );
