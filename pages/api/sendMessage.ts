@@ -1,11 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import twilio from 'twilio';
 
-const FROM_NUMBER = '+19786629696'
+const FROM_NUMBER = '+19786629696';
 const accountSid = <string>process.env.ACCOUNT_SID;
 const token = <string>process.env.AUTH_TOKEN;
 
-export default function sendMessage(req: NextApiRequest, res: NextApiResponse) {
+export default function sendMessage(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const client = twilio(accountSid, token);
   const { phone, message } = req.body;
 

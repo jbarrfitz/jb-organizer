@@ -20,7 +20,9 @@ function MyApp({ Component, pageProps }) {
             </Content>
           </Layout>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>©2022 Developed by Jerry Barrows-Fitzgerald</Footer>
+        <Footer style={{ textAlign: 'center' }}>
+          ©2022 Developed by Jerry Barrows-Fitzgerald
+        </Footer>
       </Layout>
     </AuthContextProvider>
   );
