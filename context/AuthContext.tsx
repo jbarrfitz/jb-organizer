@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
+  getAuth,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -9,7 +10,7 @@ import {
   UserCredential,
   AuthError
 } from 'firebase/auth';
-import { auth } from '../config/firebase';
+import { auth } from '../firebase/client';
 
 import { message } from 'antd';
 const { info, success, warning, error } = message;

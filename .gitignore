@@ -44,3 +44,5 @@ package-lock.json
 # cypress
 cypress/screenshots
 cypress/videos
+
+firebase-service-account.json
