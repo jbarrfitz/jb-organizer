@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
@@ -14,7 +15,12 @@ import { message } from 'antd';
 const { info, success, warning, error } = message;
 
 const authErrorString = (err: AuthError | Error | any) => {
-  if (err.code) return err.code;
+  if (err.code) {
+    return err
+      .code
+      .replace('auth/', '')
+      .replaceAll('-', ' ')
+  };
   return err.message;
 }
 
@@ -34,6 +40,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState<IUserState | null>(null);
   const [loading, setLoading] = useState(true);
+  const { push } = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -69,6 +76,7 @@ export const AuthContextProvider = ({ children }) => {
     try {
       res = await signInWithEmailAndPassword(auth, email, password)
       success(`Signed in as ${res.user.displayName || res.user.email}`)
+      push('/dashboard');
     } catch(err: AuthError | any) {
       console.error(err)
       error(`Unable to login: ${authErrorString(err)}`);
@@ -80,12 +88,14 @@ export const AuthContextProvider = ({ children }) => {
     setUser(null);
     await signOut(auth);
     info('Logged out successfully. Returning to main page...')
-    setTimeout(() => {}, 1000);
+    setTimeout(() => {
+      push('/');
+    }, 1000);
   };
 
   return (
     <AuthContext.Provider value={{ user, login, signup, logout }}>
-      {loading ? null : children}
+      {children}
     </AuthContext.Provider>
   );
 };
